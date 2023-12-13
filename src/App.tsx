@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Oval } from "react-loader-spinner"
+import.meta.env.APP_API_URL
 import "./App.css"
 type Quote = {
   content: string,
@@ -18,7 +19,7 @@ const App = () => {
       author: ""
     })
     setIsFetching(true)
-    await fetch("https://api.quotable.io/random").then(response => response.json()).then(data => {
+    await fetch(import.meta.env.VITE_API_URL).then(response => response.json()).then(data => {
       setQuoteInfo(data)
       setIsFetching(false)
     }
