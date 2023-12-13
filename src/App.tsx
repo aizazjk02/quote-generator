@@ -29,6 +29,7 @@ const App = () => {
     ).catch(e => console.log(e.message))
   }
 
+  // function to copy quote
   const copyQuote = () => {
     setIsCopying(true)
     navigator.clipboard.writeText(quoteInfo?.content)
@@ -36,6 +37,8 @@ const App = () => {
       setIsCopying(false)
     }, 2000);
   }
+
+  // loading a quote on app mount/render
   useEffect(() => {
     fetchQuote()
   }, [])
