@@ -2,28 +2,31 @@ import { useEffect, useState } from "react"
 import { Oval } from "react-loader-spinner"
 import.meta.env.APP_API_URL
 import "./App.css"
-type Quote = {
-  content: string,
-  author: string,
+
+// type imports
+import { Quote } from "./types"
+
+const emptyQuote = {
+  content: "",
+  author: ""
 }
+
 const App = () => {
-  const [quoteInfo, setQuoteInfo] = useState<Quote>({
-    content: "",
-    author: ""
-  })
+  // states
+  const [quoteInfo, setQuoteInfo] = useState<Quote>(emptyQuote)
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [isCopying, setIsCopying] = useState<boolean>(false)
+
+  // function to fetch new quote
   const fetchQuote = async () => {
-    setQuoteInfo({
-      content: "",
-      author: ""
-    })
+    setQuoteInfo(emptyQuote)
+    // starting loader
     setIsFetching(true)
     await fetch(import.meta.env.VITE_API_URL).then(response => response.json()).then(data => {
       setQuoteInfo(data)
       setIsFetching(false)
     }
-    )
+    ).catch(e => console.log(e.message))
   }
 
   const copyQuote = () => {
