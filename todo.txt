@@ -1,0 +1,4 @@
+move api URL to environment variables
+move types to it's own file
+add TS optimizations
+
