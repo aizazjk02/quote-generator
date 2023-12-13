@@ -3,6 +3,8 @@ import { Oval } from "react-loader-spinner"
 import.meta.env.APP_API_URL
 import "./App.css"
 
+// toastify imports
+import { toast } from "react-toastify"
 // type imports
 import { Quote } from "./types"
 
@@ -22,17 +24,36 @@ const App = () => {
     setQuoteInfo(emptyQuote)
     // starting loader
     setIsFetching(true)
+    // fetching data from API
     await fetch(import.meta.env.VITE_API_URL).then(response => response.json()).then(data => {
       setQuoteInfo(data)
       setIsFetching(false)
+      // sucess toast
+      toast.success("Enjoy!", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      })
     }
-    ).catch(e => console.log(e.message))
+    )
+      // error handling
+      .catch(e => {
+        // error toast
+        toast.error("Something went wrong!", {
+          position: toast.POSITION.TOP_CENTER,
+        })
+        console.log(e.message)
+      })
   }
 
   // function to copy quote
   const copyQuote = () => {
     setIsCopying(true)
     navigator.clipboard.writeText(quoteInfo?.content)
+    // toast msg
+    toast.success("Copied!", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    })
     setTimeout(() => {
       setIsCopying(false)
     }, 2000);
